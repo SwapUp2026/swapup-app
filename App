@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>SwapUp</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7f8;
+}
+
+header {
+    background: #6FAFB8;
+    padding: 10px;
+    text-align: center;
+}
+
+header img {
+    height: 60px;
+}
+
+.container {
+    padding: 15px;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.like { background: #6FAFB8; color: white; }
+.dislike { background: #FF6B6B; color: white; }
+
+.nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.category {
+    display: inline-block;
+    margin: 5px;
+    padding: 8px 14px;
+    background: #dceff2;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.screen {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.chat-box {
+    background: white;
+    padding: 10px;
+    border-radius: 15px;
+    height: 200px;
+    overflow-y: auto;
+}
+
+.message {
+    background: #dceff2;
+    margin: 5px;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.stars {
+    color: gold;
+    font-size: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logo.png">
+</header>
+
+<!-- HOME -->
+<div id="home" class="container screen active">
+
+<div>
+    <span class="category">Bücher</span>
+    <span class="category">Kleidung</span>
+    <span class="category">Technik</span>
+    <span class="category">Games</span>
+    <span class="category">Random</span>
+</div>
+
+<div class="card">
+    <img id="img">
+    <h3 id="title"></h3>
+    <p id="desc"></p>
+
+    <div class="buttons">
+        <button class="dislike" onclick="next()">❌</button>
+        <button class="like" onclick="match()">❤️</button>
+    </div>
+</div>
+
+</div>
+
+<!-- CHAT -->
+<div id="chat" class="container screen">
+    <h2>Chat 💬</h2>
+    <div class="chat-box">
+        <div class="message">Hey, tauschen wir?</div>
+        <div class="message">Klar 👍</div>
+    </div>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="container screen">
+    <h2>Mein Profil 👤</h2>
+    <p>Username: Max123</p>
+    <p>Standort: Berlin</p>
+    <p>Bewertung:</p>
+    <div class="stars">⭐⭐⭐⭐☆</div>
+</div>
+
+<div class="nav">
+    <div onclick="show('home')">🏠</div>
+    <div onclick="show('chat')">💬</div>
+    <div onclick="show('profile')">👤</div>
+</div>
+
+<script>
+let products = [
+{title:"Sneaker", desc:"Größe 42, guter Zustand", img:"https://via.placeholder.com/300"},
+{title:"PS5 Game", desc:"FIFA 23", img:"https://via.placeholder.com/300"},
+{title:"Buch", desc:"Harry Potter", img:"https://via.placeholder.com/300"}
+];
+
+let i = 0;
+
+function load(){
+document.getElementById("title").innerText = products[i].title;
+document.getElementById("desc").innerText = products[i].desc;
+document.getElementById("img").src = products[i].img;
+}
+
+function next(){
+i = (i+1) % products.length;
+load();
+}
+
+function match(){
+alert("🎉 Match! Du kannst jetzt chatten.");
+next();
+}
+
+function show(screen){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById(screen).classList.add("active");
+}
+
+load();
+</script>
+
+</body>
+</html>
